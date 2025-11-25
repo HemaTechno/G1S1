@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الأسماء - الجامعة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c5aa0;
+            --primary-dark: #1e3d72;
+            --secondary: #f8f9fa;
+            --accent: #ff6b6b;
+            --text: #333;
+            --light-text: #6c757d;
+            --border: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Tahoma", "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to left, var(--primary), var(--accent));
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 60%;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .subtitle {
+            color: var(--light-text);
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            min-width: 150px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .stat-card .number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-excel {
+            background: linear-gradient(to left, #1d6f42, #28a745);
+            color: white;
+        }
+
+        .btn-excel:hover {
+            background: linear-gradient(to left, #166133, #218838);
+        }
+
+        .btn-pdf {
+            background: linear-gradient(to left, #c82333, #dc3545);
+            color: white;
+        }
+
+        .btn-pdf:hover {
+            background: linear-gradient(to left, #a71e2a, #c82333);
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(to left, var(--primary), var(--primary-dark));
+        }
+
+        th {
+            padding: 18px 15px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: right;
+            position: relative;
+        }
+
+        th:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        tbody tr {
+            transition: var(--transition);
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tbody tr:hover {
+            background-color: #e8f4ff;
+            transform: scale(1.01);
+        }
+
+        td {
+            padding: 16px 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1.05rem;
+        }
+
+        .id-cell {
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto;
+            }
+            
+            table {
+                min-width: 600px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            button {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        /* طباعة PDF */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .buttons, .stats, footer {
+                display: none;
+            }
+            
+            .table-container {
+                box-shadow: none;
+            }
+            
+            thead {
+                background: #f0f0f0 !important;
+                color: black !important;
+            }
+            
+            th {
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-users"></i> قائمة الطلاب</h1>
+            <p class="subtitle">قائمة الأسماء مرتبة حسب رقم التعريف الجامعي</p>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <div class="number">28</div>
+                    <div class="label">طالب وطالبة</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-id-card"></i>
+                    <div class="number">2540001</div>
+                    <div class="label">أول رقم تعريف</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-sort-numeric-down"></i>
+                    <div class="number">2540907</div>
+                    <div class="label">آخر رقم تعريف</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="buttons">
+            <button class="btn-excel" onclick="downloadExcel()">
+                <i class="fas fa-file-excel"></i>
+                تحميل Excel
+            </button>
+            <button class="btn-pdf" onclick="downloadPDF()">
+                <i class="fas fa-file-pdf"></i>
+                تحميل PDF
+            </button>
+        </div>
+        
+        <div class="table-container">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>الاسم الكامل</th>
+                        <th width="150">رقم التعريف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>أحمد أيمن عرفات ابو إدريس</td><td class="id-cell">2540001</td></tr>
+                    <tr><td>احمد رمضان ابراهيم عبد القادر</td><td class="id-cell">2540002</td></tr>
+                    <tr><td>أحمد ضياء على خضر</td><td class="id-cell">2540003</td></tr>
+                    <tr><td>ابتهال كمال محمد ابراهيم التباع</td><td class="id-cell">2540005</td></tr>
+                    <tr><td>ابرار حامد ابراهيم حامد يوسف</td><td class="id-cell">2540006</td></tr>
+                    <tr><td>ابراهيم صبحى ابراهيم منصور</td><td class="id-cell">2540007</td></tr>
+                    <tr><td>إبراهيم محمد إبراهيم الإبشيهى</td><td class="id-cell">2540009</td></tr>
+                    <tr><td>احلام ماهر جابر اسماعيل الهريدي</td><td class="id-cell">2540010</td></tr>
+                    <tr><td>احمد الشحات محمد وهبه</td><td class="id-cell">2540011</td></tr>
+                    <tr><td>احمد صلاح طلعت بسيونى</td><td class="id-cell">2540016</td></tr>
+                    <tr><td>احمد صلاح محمد سيد احمد سعدات</td><td class="id-cell">2540017</td></tr>
+                    <tr><td>احمد عبد المقصود قاطون</td><td class="id-cell">2540018</td></tr>
+                    <tr><td>احمد عصام محمود محمد بطاح</td><td class="id-cell">2540020</td></tr>
+                    <tr><td>احمد عطيه مصطفى الشرقاوي</td><td class="id-cell">2540021</td></tr>
+                    <tr><td>أحمد محمد أبو الفتوح</td><td class="id-cell">2540022</td></tr>
+                    <tr><td>أحمد علاء محمد حمدي أبو النصر</td><td class="id-cell">2540024</td></tr>
+                    <tr><td>أحمد فايز متولى</td><td class="id-cell">2540025</td></tr>
+                    <tr><td>أحمد فوزي أحمد عبدالعزيز</td><td class="id-cell">2540026</td></tr>
+                    <tr><td>احمد محمد جزار</td><td class="id-cell">2540027</td></tr>
+                    <tr><td>احمد محمد بسطويسي طه الجرن</td><td class="id-cell">2540028</td></tr>
+                    <tr><td>احمد محمد عبدالغني زايد</td><td class="id-cell">2540029</td></tr>
+                    <tr><td>أحمد محمود جمعه يوسف</td><td class="id-cell">2540030</td></tr>
+                    <tr><td>احمد محمود الجبالي</td><td class="id-cell">2540031</td></tr>
+                    <tr><td>اروى شيبه محمد شيبه سعد</td><td class="id-cell">2540034</td></tr>
+                    <tr><td>حبيبه حماده جابر ربيع</td><td class="id-cell">2540133</td></tr>
+                    <tr><td>عبدالرحمن هيثم محمد</td><td class="id-cell">2540244</td></tr>
+                    <tr><td>يوسف محمد ابراهيم مصطفى راشد</td><td class="id-cell">2540424</td></tr>
+                    <tr><td>علا محمد عبد السلام محمد الشعراوي</td><td class="id-cell">2540907</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <footer>
+            <div class="logo">نظام إدارة الطلاب</div>
+            <p>جميع الحقوق محفوظة &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        function downloadExcel() {
+            const table = document.getElementById("dataTable");
+            let csv = [];
+
+            for (let row of table.rows) {
+                let cols = [...row.cells].map(cell => cell.innerText);
+                csv.push(cols.join(","));
+            }
+
+            const blob = new Blob(["\uFEFF" + csv.join("\n")], { type: "text/csv;charset=utf-8;" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "قائمة_الطلاب.csv";
+            a.click();
+            
+            // تأثير بسيط عند النقر
+            const btn = event.target.closest('button');
+            btn.style.transform = "scale(0.95)";
+            setTimeout(() => {
+                btn.style.transform = "";
+            }, 200);
+        }
+
+        function downloadPDF() {
+            // تأثير بسيط عند النقر
+            const btn = event.target.closest('button');
+            btn.style.transform = "scale(0.95)";
+            setTimeout(() => {
+                btn.style.transform = "";
+                window.print();
+            }, 200);
+        }
+        
+        // إضافة تأثيرات تفاعلية إضافية
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة تأثير ظهور تدريجي للجدول
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach((row, index) => {
+                row.style.opacity = '0';
+                row.style.transform = 'translateX(20px)';
+                
+                setTimeout(() => {
+                    row.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    row.style.opacity = '1';
+                    row.style.transform = 'translateX(0)';
+                }, index * 50);
+            });
+        });
+    </script>
+</body>
+</html>
