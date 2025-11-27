@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطة الدراسة - 22 يوم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --primary-dark: #2575fc;
+            --secondary: #ff7e5f;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #f8f9fa;
+            --gray: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --card-bg: #1e1e1e;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .progress-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .progress-info {
+            flex: 1;
+        }
+
+        .progress-bar-container {
+            height: 12px;
+            background: var(--gray);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            border-radius: 10px;
+            transition: var(--transition);
+            width: 0%;
+        }
+
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .day-number {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .tasks-list {
+            padding: 15px;
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .task:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-left-color: var(--primary);
+        }
+
+        .task.done {
+            opacity: 0.7;
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .task-content {
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .task-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .task-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+        }
+
+        .btn-done {
+            color: var(--success);
+        }
+
+        .btn-done:hover {
+            background: rgba(40, 167, 69, 0.2);
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 3px;
+        }
+
+        .star {
+            color: #444;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .star.selected {
+            color: gold;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .days-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .progress-summary {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>خطة الدراسة - 22 يوم</h1>
+            <p class="subtitle">نظام متابعة المهام الدراسية مع تقييم الأداء</p>
+        </header>
+
+        <div class="progress-summary">
+            <div class="progress-info">
+                <h3>تقدمك الدراسي</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="overallProgress"></div>
+                </div>
+                <p>إكمال <span id="completedTasks">0</span> من <span id="totalTasks">0</span> مهمة</p>
+            </div>
+            <div class="motivation">
+                <i class="fas fa-graduation-cap"></i>
+                <p>استمر في التقدم، أنت على الطريق الصحيح!</p>
+            </div>
+        </div>
+
+        <div class="days-container" id="tasksContainer"></div>
+    </div>
+
+    <script>
+        // ====================== البيانات ======================
+        const days = [
+            {
+                day: "اليوم 1",
+                tasks: [
+                    "فسيولوجي 1 Introduction",
+                    "أناتومي نظري 1 Anatomical terms",
+                    "أناتومي عملي 1 Anatomical terms",
+                    "فاندامل عملي 1 Hand hygiene + PPE",
+                    "إنجليزي Lecture 1 Nursing"
+                ]
+            },
+            {
+                day: "اليوم 2",
+                tasks: [
+                    "فسيولوجي 2 Excitable tissue",
+                    "أناتومي نظري 2 Skeletal system 1",
+                    "أناتومي عملي 2 Skeletal system & Skeleton",
+                    "فاندامل عملي 2 Position + Body Mechanics",
+                    "حقوق 1 فصل تمهيدي"
+                ]
+            },
+            {
+                day: "اليوم 3",
+                tasks: [
+                    "فسيولوجي 3 ANS",
+                    "أناتومي نظري 3 Skeletal system 2",
+                    "أناتومي عملي 3 Axial skeleton",
+                    "فاندامل عملي 3 Respiration",
+                    "إنجليزي Medical Supplies"
+                ]
+            },
+            {
+                day: "اليوم 4",
+                tasks: [
+                    "فسيولوجي 4 Blood 1",
+                    "أناتومي نظري 4 Skin – Fascia – Muscle",
+                    "أناتومي عملي 4 Appendicular Skeleton",
+                    "فاندامل عملي 4 Blood pressure",
+                    "حقوق 2 القانون الدولي لحقوق الإنسان"
+                ]
+            },
+            {
+                day: "اليوم 5",
+                tasks: [
+                    "فسيولوجي 5 Blood 2",
+                    "أناتومي نظري 5 Skeletal Muscles & Joints",
+                    "أناتومي عملي 6 Muscles & Joints I",
+                    "فاندامل عملي 5 Body temperature",
+                    "إنجليزي Medical Specialists"
+                ]
+            },
+            {
+                day: "اليوم 6",
+                tasks: [
+                    "فسيولوجي 6 LECT",
+                    "أناتومي نظري 6 Joints 2 & Respiratory",
+                    "أناتومي عملي 7 Joints II & Respiratory System",
+                    "فاندامل عملي 6 Pulse assess",
+                    "حقوق 3 القانون الدولي الإنساني"
+                ]
+            },
+            {
+                day: "اليوم 7",
+                tasks: [
+                    "فسيولوجي 7 CVS",
+                    "أناتومي نظري 7 Cardiovascular System",
+                    "أناتومي عملي 8 Heart",
+                    "فاندامل عملي 7 Bed making",
+                    "فاندامل عملي 8 Bed bath",
+                    "إنجليزي Grammar Focus"
+                ]
+            },
+            {
+                day: "اليوم 8",
+                tasks: [
+                    "فسيولوجي 8 Respiration",
+                    "أناتومي نظري 8 Digestive & Urinary",
+                    "أناتومي عملي 9 Blood vessels & digestive system",
+                    "حقوق 4 حقوق الإنسان في التشريع"
+                ]
+            },
+            {
+                day: "اليوم 9",
+                tasks: [
+                    "أناتومي نظري 9 Genital – Endocrine",
+                    "مايكرو 1 Structure of bacterial cell",
+                    "إنجليزي Grammar Focus 2"
+                ]
+            },
+            {
+                day: "اليوم 10",
+                tasks: [
+                    "مايكرو 2 Antimicrobial chemotherapy",
+                    "حقوق 5 حقوق الإنسان في التشريع"
+                ]
+            },
+            {
+                day: "اليوم 11",
+                tasks: [
+                    "مايكرو 3 Systemic bacteriology",
+                    "مايكرو 4 Innate Immunity",
+                    "فاندامل نظري 1 Nursing professional",
+                    "إنجليزي How to say the date"
+                ]
+            },
+            {
+                day: "اليوم 12",
+                tasks: [
+                    "مايكرو 5 Immunology",
+                    "مايكرو 6 Bacterial Physiology",
+                    "فاندامل نظري 2 Health Care Delivery",
+                    "حقوق 6 حقوق الإنسان في التشريع"
+                ]
+            },
+            {
+                day: "اليوم 13",
+                tasks: [
+                    "مايكرو 7 Virology",
+                    "مايكرو 8 Healthcare-associated infections",
+                    "فاندامل نظري 3 Health & Illness",
+                    "إنجليزي Grammar Focus"
+                ]
+            },
+            {
+                day: "اليوم 14",
+                tasks: [
+                    "مايكرو 9 Sterilization & Disinfection",
+                    "فاندامل نظري 4 Patient Safety",
+                    "حقوق 7 ضمانات الحقوق والحريات",
+                    "إنجليزي Grammar Focus مراجعة"
+                ]
+            },
+            {
+                day: "اليوم 15",
+                tasks: [
+                    "فاندامل نظري 5 Vital signs – Respiration",
+                    "فاندامل نظري 6 Vital signs – Temperature",
+                    "حقوق 8 الشفافية ومكافحة الفساد",
+                    "إنجليزي مراجعة"
+                ]
+            },
+            {
+                day: "اليوم 16",
+                tasks: [
+                    "فاندامل نظري 7 Pulse",
+                    "فاندامل نظري 8 Pain Management",
+                    "حقوق 9 المسئولية الطبية",
+                    "مايكرو مراجعة 1"
+                ]
+            },
+            {
+                day: "اليوم 17",
+                tasks: [
+                    "فسيولوجي مراجعة شاملة",
+                    "أناتومي نظري + عملي مراجعة",
+                    "إنجليزي مراجعة"
+                ]
+            },
+            {
+                day: "اليوم 18",
+                tasks: [
+                    "مراجعة مايكرو كبيرة",
+                    "مراجعة فاندامل عملي",
+                    "مراجعة فاندامل نظري"
+                ]
+            },
+            {
+                day: "اليوم 19",
+                tasks: [
+                    "مراجعة حقوق",
+                    "مراجعة فسيولوجي جولة تانية",
+                    "مراجعة أناتومي جولة تانية"
+                ]
+            },
+            {
+                day: "اليوم 20",
+                tasks: [
+                    "مراجعة المواد العلمية (فسيولوجي – مايكرو – أناتومي)"
+                ]
+            },
+            {
+                day: "اليوم 21",
+                tasks: [
+                    "مراجعة المواد النظرية (فاندامل – حقوق – إنجليزي)"
+                ]
+            },
+            {
+                day: "اليوم 22",
+                tasks: [
+                    "مراجعة شاملة — تثبيت قبل الامتحانات"
+                ]
+            }
+        ];
+
+        // ====================== الدوال ======================
+        function saveProgress(dayIndex, taskIndex, done, rating) {
+            const key = `day${dayIndex}-task${taskIndex}`;
+            localStorage.setItem(key, JSON.stringify({ done, rating }));
+            updateProgressSummary();
+        }
+
+        function loadProgress(dayIndex, taskIndex) {
+            const key = `day${dayIndex}-task${taskIndex}`;
+            const saved = localStorage.getItem(key);
+            if (saved) return JSON.parse(saved);
+            return { done: false, rating: 0 };
+        }
+
+        function updateProgressSummary() {
+            let completedTasks = 0;
+            let totalTasks = 0;
+
+            days.forEach((dayObj, dayIndex) => {
+                dayObj.tasks.forEach((taskName, taskIndex) => {
+                    totalTasks++;
+                    const progress = loadProgress(dayIndex, taskIndex);
+                    if (progress.done) completedTasks++;
+                });
+            });
+
+            const progressPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+            
+            document.getElementById('overallProgress').style.width = `${progressPercentage}%`;
+            document.getElementById('completedTasks').textContent = completedTasks;
+            document.getElementById('totalTasks').textContent = totalTasks;
+        }
+
+        // ====================== توليد المهام ======================
+        const container = document.getElementById('tasksContainer');
+
+        days.forEach((dayObj, dayIndex) => {
+            const dayCard = document.createElement('div');
+            dayCard.className = 'day-card';
+
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'day-header';
+
+            const dayTitle = document.createElement('div');
+            dayTitle.className = 'day-title';
+            dayTitle.textContent = dayObj.day;
+
+            const dayNumber = document.createElement('div');
+            dayNumber.className = 'day-number';
+            dayNumber.textContent = dayIndex + 1;
+
+            dayHeader.appendChild(dayTitle);
+            dayHeader.appendChild(dayNumber);
+
+            const tasksList = document.createElement('div');
+            tasksList.className = 'tasks-list';
+
+            if (dayObj.tasks.length === 0) {
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.innerHTML = `
+                    <i class="fas fa-coffee"></i>
+                    <p>لا توجد مهام لهذا اليوم</p>
+                `;
+                tasksList.appendChild(emptyState);
+            } else {
+                dayObj.tasks.forEach((taskName, taskIndex) => {
+                    const taskDiv = document.createElement('div');
+                    taskDiv.className = 'task';
+
+                    const progress = loadProgress(dayIndex, taskIndex);
+                    if (progress.done) taskDiv.classList.add('done');
+
+                    const taskContent = document.createElement('div');
+                    taskContent.className = 'task-content';
+
+                    const taskTitle = document.createElement('div');
+                    taskTitle.className = 'task-title';
+                    taskTitle.textContent = taskName;
+
+                    taskContent.appendChild(taskTitle);
+
+                    const taskActions = document.createElement('div');
+                    taskActions.className = 'task-actions';
+
+                    // زر تم
+                    const doneBtn = document.createElement('button');
+                    doneBtn.className = 'btn btn-done';
+                    doneBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    doneBtn.onclick = () => {
+                        taskDiv.classList.toggle('done');
+                        const isDone = taskDiv.classList.contains('done');
+                        saveProgress(dayIndex, taskIndex, isDone, progress.rating);
+                    };
+
+                    // تقييم النجوم
+                    const ratingDiv = document.createElement('div');
+                    ratingDiv.className = 'star-rating';
+                    for (let i = 1; i <= 5; i++) {
+                        const star = document.createElement('span');
+                        star.className = 'star';
+                        star.innerHTML = '<i class="fas fa-star"></i>';
+                        if (progress.rating >= i) star.classList.add('selected');
+                        star.onclick = () => {
+                            progress.rating = i;
+                            saveProgress(dayIndex, taskIndex, progress.done, progress.rating);
+                            // تحديث النجوم
+                            Array.from(ratingDiv.children).forEach((s, j) => {
+                                s.classList.toggle('selected', j < i);
+                            });
+                        }
+                        ratingDiv.appendChild(star);
+                    }
+
+                    taskActions.appendChild(doneBtn);
+                    taskActions.appendChild(ratingDiv);
+
+                    taskDiv.appendChild(taskContent);
+                    taskDiv.appendChild(taskActions);
+
+                    tasksList.appendChild(taskDiv);
+                });
+            }
+
+            dayCard.appendChild(dayHeader);
+            dayCard.appendChild(tasksList);
+            container.appendChild(dayCard);
+        });
+
+        // تحديث التقدم عند التحميل
+        updateProgressSummary();
+    </script>
+</body>
+</html>
