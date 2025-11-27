@@ -1,40 +1,40 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خطة الدراسة - 22 يوم</title>
+    <title>جدول المذاكرة - 22 يوم</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6a11cb;
-            --primary-dark: #2575fc;
-            --secondary: #ff7e5f;
-            --dark: #121212;
-            --darker: #0a0a0a;
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
             --light: #f8f9fa;
-            --gray: #343a40;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-            --card-bg: #1e1e1e;
-            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-            --transition: all 0.3s ease;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --gradient: linear-gradient(135deg, #4361ee, #3a0ca3);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, var(--darker), var(--dark));
-            color: var(--light);
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
             min-height: 100vh;
             padding: 20px;
-            line-height: 1.6;
+            direction: rtl;
         }
 
         .container {
@@ -46,197 +46,249 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 20px;
-            background: rgba(30, 30, 30, 0.7);
+            background: var(--gradient);
             border-radius: 15px;
-            box-shadow: var(--card-shadow);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,138.7C1248,139,1344,181,1392,202.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
         }
 
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
+            position: relative;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .subtitle {
             font-size: 1.2rem;
-            color: #aaa;
-            margin-bottom: 20px;
+            opacity: 0.9;
+            font-weight: 300;
         }
 
-        .progress-summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .progress-info {
-            flex: 1;
-        }
-
-        .progress-bar-container {
-            height: 12px;
-            background: var(--gray);
+        .progress-container {
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            overflow: hidden;
-            margin: 10px 0;
+            padding: 15px;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
         }
 
         .progress-bar {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress {
             height: 100%;
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            border-radius: 10px;
-            transition: var(--transition);
+            background-color: var(--success);
             width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
         }
 
         .days-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
+            margin-bottom: 40px;
         }
 
-        .day-card {
-            background: var(--card-bg);
+        .day {
+            background-color: var(--card-bg);
             border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 5px solid var(--primary);
         }
 
-        .day-card:hover {
+        .day:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .day::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
         }
 
         .day-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .day-title {
-            font-size: 1.3rem;
-            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .day-number {
-            background: rgba(255, 255, 255, 0.2);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .day-number::before {
+            content: "اليوم";
+            font-size: 1rem;
+            margin-left: 5px;
+            font-weight: 400;
+            color: var(--dark);
+        }
+
+        .day-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
             border-radius: 50%;
-            width: 35px;
-            height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            color: white;
+            font-size: 1.5rem;
         }
 
-        .tasks-list {
-            padding: 15px;
+        .subjects {
+            list-style-type: none;
+            padding: 0;
         }
 
-        .task {
-            display: flex;
-            align-items: center;
+        .subject {
             padding: 12px 15px;
             margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.05);
+            background-color: var(--light);
             border-radius: 10px;
-            transition: var(--transition);
-            border-left: 3px solid transparent;
-        }
-
-        .task:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-left-color: var(--primary);
-        }
-
-        .task.done {
-            opacity: 0.7;
-            background: rgba(40, 167, 69, 0.1);
-        }
-
-        .task-content {
-            flex: 1;
-            margin-left: 15px;
-        }
-
-        .task-title {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .task-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            transition: all 0.2s ease;
+            border-right: 4px solid transparent;
+        }
+
+        .subject:hover {
+            background-color: #e9ecef;
+            border-right-color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        .subject i {
+            margin-left: 10px;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .subject-type {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .subject-type.theory {
+            background-color: var(--secondary);
+        }
+
+        .subject-type.practical {
+            background-color: var(--accent);
+        }
+
+        .subject-type.review {
+            background-color: var(--success);
+        }
+
+        .subject-type.english {
+            background-color: var(--warning);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .btn {
-            background: transparent;
+            padding: 12px 25px;
             border: none;
+            border-radius: 50px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 500;
             cursor: pointer;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            border-radius: 5px;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 35px;
-            height: 35px;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-done {
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .completed .day-number {
             color: var(--success);
         }
 
-        .btn-done:hover {
-            background: rgba(40, 167, 69, 0.2);
+        .completed .subject {
+            opacity: 0.7;
+            text-decoration: line-through;
         }
 
-        .star-rating {
-            display: flex;
-            gap: 3px;
+        .completed .subject-type {
+            opacity: 0.7;
         }
 
-        .star {
-            color: #444;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 1.1rem;
-        }
-
-        .star.selected {
-            color: gold;
-        }
-
-        .star:hover {
-            transform: scale(1.2);
-        }
-
-        .empty-state {
+        footer {
             text-align: center;
-            padding: 40px 20px;
-            color: #888;
-        }
-
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #444;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
@@ -248,9 +300,14 @@
                 font-size: 2rem;
             }
             
-            .progress-summary {
+            .controls {
                 flex-direction: column;
-                text-align: center;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -258,354 +315,313 @@
 <body>
     <div class="container">
         <header>
-            <h1>خطة الدراسة - 22 يوم</h1>
-            <p class="subtitle">نظام متابعة المهام الدراسية مع تقييم الأداء</p>
+            <h1>جدول المذاكرة</h1>
+            <p class="subtitle">خطة منظمة لـ 22 يوم لتحقيق أفضل النتائج</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="progress-text">
+                    <span>التقدم: <span id="progress-percent">0%</span></span>
+                    <span>الأيام المتبقية: <span id="remaining-days">22</span></span>
+                </div>
+            </div>
         </header>
 
-        <div class="progress-summary">
-            <div class="progress-info">
-                <h3>تقدمك الدراسي</h3>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="overallProgress"></div>
-                </div>
-                <p>إكمال <span id="completedTasks">0</span> من <span id="totalTasks">0</span> مهمة</p>
-            </div>
-            <div class="motivation">
-                <i class="fas fa-graduation-cap"></i>
-                <p>استمر في التقدم، أنت على الطريق الصحيح!</p>
-            </div>
+        <div class="controls">
+            <button class="btn btn-primary" id="mark-all">
+                <i class="fas fa-check-circle"></i> تعليم الكل كمكتمل
+            </button>
+            <button class="btn btn-outline" id="reset-all">
+                <i class="fas fa-redo"></i> إعادة تعيين
+            </button>
         </div>
 
-        <div class="days-container" id="tasksContainer"></div>
+        <div class="days-container" id="days-container">
+            <!-- سيتم إضافة الأيام ديناميكياً -->
+        </div>
+
+        <footer>
+            <p>تم التصميم بتقنيات حديثة لتجربة مستخدم محسنة - 2023</p>
+        </footer>
     </div>
 
     <script>
-        // ====================== البيانات ======================
-        const days = [
+        // بيانات الأيام
+        const daysData = [
             {
-                day: "اليوم 1",
-                tasks: [
-                    "فسيولوجي 1 Introduction",
-                    "أناتومي نظري 1 Anatomical terms",
-                    "أناتومي عملي 1 Anatomical terms",
-                    "فاندامل عملي 1 Hand hygiene + PPE",
-                    "إنجليزي Lecture 1 Nursing"
+                day: 1,
+                subjects: [
+                    { name: "Terminology, Hand Hygiene", type: "practical", course: "Fundamental" },
+                    { name: "Nursing Professional", type: "theory", course: "Fundamental" },
+                    { name: "Introduction", type: "theory", course: "Physiology" }
                 ]
             },
             {
-                day: "اليوم 2",
-                tasks: [
-                    "فسيولوجي 2 Excitable tissue",
-                    "أناتومي نظري 2 Skeletal system 1",
-                    "أناتومي عملي 2 Skeletal system & Skeleton",
-                    "فاندامل عملي 2 Position + Body Mechanics",
-                    "حقوق 1 فصل تمهيدي"
+                day: 2,
+                subjects: [
+                    { name: "PPE, Respiration", type: "practical", course: "Fundamental" },
+                    { name: "Health and Illness", type: "theory", course: "Fundamental" },
+                    { name: "Lecture 1 Nursing", type: "english", course: "English" }
                 ]
             },
             {
-                day: "اليوم 3",
-                tasks: [
-                    "فسيولوجي 3 ANS",
-                    "أناتومي نظري 3 Skeletal system 2",
-                    "أناتومي عملي 3 Axial skeleton",
-                    "فاندامل عملي 3 Respiration",
-                    "إنجليزي Medical Supplies"
+                day: 3,
+                subjects: [
+                    { name: "Position, Blood Pressure", type: "practical", course: "Fundamental" },
+                    { name: "Patient Safety in Health Care Settings", type: "theory", course: "Fundamental" },
+                    { name: "Structure of Bacterial Cell", type: "theory", course: "Microbiology" }
                 ]
             },
             {
-                day: "اليوم 4",
-                tasks: [
-                    "فسيولوجي 4 Blood 1",
-                    "أناتومي نظري 4 Skin – Fascia – Muscle",
-                    "أناتومي عملي 4 Appendicular Skeleton",
-                    "فاندامل عملي 4 Blood pressure",
-                    "حقوق 2 القانون الدولي لحقوق الإنسان"
+                day: 4,
+                subjects: [
+                    { name: "Body Temperature, Body Mechanics", type: "practical", course: "Fundamental" },
+                    { name: "Vital Signs Respiration", type: "theory", course: "Fundamental" },
+                    { name: "Excitable Tissue", type: "theory", course: "Physiology" }
                 ]
             },
             {
-                day: "اليوم 5",
-                tasks: [
-                    "فسيولوجي 5 Blood 2",
-                    "أناتومي نظري 5 Skeletal Muscles & Joints",
-                    "أناتومي عملي 6 Muscles & Joints I",
-                    "فاندامل عملي 5 Body temperature",
-                    "إنجليزي Medical Specialists"
+                day: 5,
+                subjects: [
+                    { name: "Pulse Assess, Bed Bath", type: "practical", course: "Fundamental" },
+                    { name: "Vital Signs Temperature, Pulse", type: "theory", course: "Fundamental" },
+                    { name: "Anatomical Terms", type: "theory", course: "Anatomy" }
                 ]
             },
             {
-                day: "اليوم 6",
-                tasks: [
-                    "فسيولوجي 6 LECT",
-                    "أناتومي نظري 6 Joints 2 & Respiratory",
-                    "أناتومي عملي 7 Joints II & Respiratory System",
-                    "فاندامل عملي 6 Pulse assess",
-                    "حقوق 3 القانون الدولي الإنساني"
+                day: 6,
+                subjects: [
+                    { name: "Bed Making + مراجعة", type: "practical", course: "Fundamental" },
+                    { name: "ANS, Blood 1", type: "theory", course: "Physiology" },
+                    { name: "Antimicrobial Chemotherapy", type: "theory", course: "Microbiology" }
                 ]
             },
             {
-                day: "اليوم 7",
-                tasks: [
-                    "فسيولوجي 7 CVS",
-                    "أناتومي نظري 7 Cardiovascular System",
-                    "أناتومي عملي 8 Heart",
-                    "فاندامل عملي 7 Bed making",
-                    "فاندامل عملي 8 Bed bath",
-                    "إنجليزي Grammar Focus"
+                day: 7,
+                subjects: [
+                    { name: "تمرين عملي شامل للفاندا + مراجعة", type: "practical", course: "Fundamental" },
+                    { name: "Blood 2, LECT", type: "theory", course: "Physiology" },
+                    { name: "Skeletal System 1, Skeletal System 2", type: "theory", course: "Anatomy" }
                 ]
             },
             {
-                day: "اليوم 8",
-                tasks: [
-                    "فسيولوجي 8 Respiration",
-                    "أناتومي نظري 8 Digestive & Urinary",
-                    "أناتومي عملي 9 Blood vessels & digestive system",
-                    "حقوق 4 حقوق الإنسان في التشريع"
+                day: 8,
+                subjects: [
+                    { name: "Skin, Fascia & Muscle, Skeletal Muscles & Joints", type: "theory", course: "Anatomy" },
+                    { name: "Pain Management", type: "theory", course: "Fundamental" },
+                    { name: "Systemic Bacteriology", type: "theory", course: "Microbiology" },
+                    { name: "Unit 1 Medical Supplies and Tools", type: "english", course: "English" }
                 ]
             },
             {
-                day: "اليوم 9",
-                tasks: [
-                    "أناتومي نظري 9 Genital – Endocrine",
-                    "مايكرو 1 Structure of bacterial cell",
-                    "إنجليزي Grammar Focus 2"
+                day: 9,
+                subjects: [
+                    { name: "Joints 2 & Respiratory, Cardiovascular System", type: "theory", course: "Anatomy" },
+                    { name: "Patient Safety Review", type: "review", course: "Fundamental" },
+                    { name: "Introduction to Ethics, Patient Rights & Responsibility", type: "theory", course: "Ethics" }
                 ]
             },
             {
-                day: "اليوم 10",
-                tasks: [
-                    "مايكرو 2 Antimicrobial chemotherapy",
-                    "حقوق 5 حقوق الإنسان في التشريع"
+                day: 10,
+                subjects: [
+                    { name: "Digestive & Urinary, Genital & Endocrine", type: "theory", course: "Anatomy" },
+                    { name: "Immunity (Innate), Immunology Part II", type: "theory", course: "Microbiology" },
+                    { name: "Medical Specialist", type: "english", course: "English" }
                 ]
             },
             {
-                day: "اليوم 11",
-                tasks: [
-                    "مايكرو 3 Systemic bacteriology",
-                    "مايكرو 4 Innate Immunity",
-                    "فاندامل نظري 1 Nursing professional",
-                    "إنجليزي How to say the date"
+                day: 11,
+                subjects: [
+                    { name: "Anatomical Terms, Skeletal System & Skeleton", type: "practical", course: "Anatomy" },
+                    { name: "Nurses’ Rights & Responsibility, Professional Relationship", type: "theory", course: "Ethics" },
+                    { name: "فصل تمهيدي، المفاهيم الأساسية للحق والحرية والقانون", type: "theory", course: "Rights" }
                 ]
             },
             {
-                day: "اليوم 12",
-                tasks: [
-                    "مايكرو 5 Immunology",
-                    "مايكرو 6 Bacterial Physiology",
-                    "فاندامل نظري 2 Health Care Delivery",
-                    "حقوق 6 حقوق الإنسان في التشريع"
+                day: 12,
+                subjects: [
+                    { name: "Axial Skeleton, Muscles & Joints I", type: "practical", course: "Anatomy" },
+                    { name: "CVS, Respiration", type: "theory", course: "Physiology" },
+                    { name: "Bacterial Physiology & Metabolism, Host-Parasite Relationship", type: "theory", course: "Microbiology" }
                 ]
             },
             {
-                day: "اليوم 13",
-                tasks: [
-                    "مايكرو 7 Virology",
-                    "مايكرو 8 Healthcare-associated infections",
-                    "فاندامل نظري 3 Health & Illness",
-                    "إنجليزي Grammar Focus"
+                day: 13,
+                subjects: [
+                    { name: "Joints II & Respiratory System, Heart", type: "practical", course: "Anatomy" },
+                    { name: "Vital Signs Review", type: "review", course: "Fundamental" },
+                    { name: "Professional Relationship, Legal Aspects of Nursing", type: "theory", course: "Ethics" }
                 ]
             },
             {
-                day: "اليوم 14",
-                tasks: [
-                    "مايكرو 9 Sterilization & Disinfection",
-                    "فاندامل نظري 4 Patient Safety",
-                    "حقوق 7 ضمانات الحقوق والحريات",
-                    "إنجليزي Grammar Focus مراجعة"
+                day: 14,
+                subjects: [
+                    { name: "Blood Vessels & Digestive System", type: "practical", course: "Anatomy" },
+                    { name: "Review Blood, ANS", type: "review", course: "Physiology" },
+                    { name: "Grammar Focus & How to say the Date in English", type: "english", course: "English" }
                 ]
             },
             {
-                day: "اليوم 15",
-                tasks: [
-                    "فاندامل نظري 5 Vital signs – Respiration",
-                    "فاندامل نظري 6 Vital signs – Temperature",
-                    "حقوق 8 الشفافية ومكافحة الفساد",
-                    "إنجليزي مراجعة"
+                day: 15,
+                subjects: [
+                    { name: "Virology, HAI, Sterilization & Disinfection", type: "theory", course: "Microbiology" },
+                    { name: "2025 Code of Ethics Part 1 & 2", type: "theory", course: "Ethics" },
+                    { name: "القانون الدولي لحقوق الإنسان، القانون الدولي الإنساني", type: "theory", course: "Rights" }
                 ]
             },
             {
-                day: "اليوم 16",
-                tasks: [
-                    "فاندامل نظري 7 Pulse",
-                    "فاندامل نظري 8 Pain Management",
-                    "حقوق 9 المسئولية الطبية",
-                    "مايكرو مراجعة 1"
+                day: 16,
+                subjects: [
+                    { name: "Vital Signs + Pain Management Review", type: "review", course: "Fundamental" },
+                    { name: "Muscles & Joints Review", type: "review", course: "Anatomy" },
+                    { name: "Blood 1 & 2 Review", type: "review", course: "Physiology" }
                 ]
             },
             {
-                day: "اليوم 17",
-                tasks: [
-                    "فسيولوجي مراجعة شاملة",
-                    "أناتومي نظري + عملي مراجعة",
-                    "إنجليزي مراجعة"
+                day: 17,
+                subjects: [
+                    { name: "Review Immunity & Bacterial Physiology", type: "review", course: "Microbiology" },
+                    { name: "Grammar Focus Review, Medical Specialists", type: "review", course: "English" },
+                    { name: "حقوق وحريات الإنسان في التشريع", type: "theory", course: "Rights" }
                 ]
             },
             {
-                day: "اليوم 18",
-                tasks: [
-                    "مراجعة مايكرو كبيرة",
-                    "مراجعة فاندامل عملي",
-                    "مراجعة فاندامل نظري"
+                day: 18,
+                subjects: [
+                    { name: "تمرين شامل + Bed Bath / Bed Making", type: "practical", course: "Fundamental" },
+                    { name: "Legal Aspects Review", type: "review", course: "Ethics" },
+                    { name: "CVS & Respiration Review", type: "review", course: "Physiology" }
                 ]
             },
             {
-                day: "اليوم 19",
-                tasks: [
-                    "مراجعة حقوق",
-                    "مراجعة فسيولوجي جولة تانية",
-                    "مراجعة أناتومي جولة تانية"
+                day: 19,
+                subjects: [
+                    { name: "Heart, Blood Vessels & Digestive System Review", type: "review", course: "Anatomy" },
+                    { name: "Patient Safety & Pain Management", type: "theory", course: "Fundamental" },
+                    { name: "Sterilization & Disinfection Review", type: "review", course: "Microbiology" }
                 ]
             },
             {
-                day: "اليوم 20",
-                tasks: [
-                    "مراجعة المواد العلمية (فسيولوجي – مايكرو – أناتومي)"
+                day: 20,
+                subjects: [
+                    { name: "Grammar Focus, Medical Tools & Specialists Review", type: "review", course: "English" },
+                    { name: "ضمانات الحقوق والحريات، الشفافية ومكافحة الفساد", type: "theory", course: "Rights" },
+                    { name: "Code of Ethics Review", type: "review", course: "Ethics" }
                 ]
             },
             {
-                day: "اليوم 21",
-                tasks: [
-                    "مراجعة المواد النظرية (فاندامل – حقوق – إنجليزي)"
+                day: 21,
+                subjects: [
+                    { name: "Full Review (Introduction to Respiration & CVS)", type: "review", course: "Physiology" },
+                    { name: "Full Practical Review", type: "review", course: "Fundamental" },
+                    { name: "All Systems Overview", type: "review", course: "Anatomy" }
                 ]
             },
             {
-                day: "اليوم 22",
-                tasks: [
-                    "مراجعة شاملة — تثبيت قبل الامتحانات"
+                day: 22,
+                subjects: [
+                    { name: "Full Review", type: "review", course: "Microbiology" },
+                    { name: "Full Review", type: "review", course: "Fundamental" },
+                    { name: "Final Review", type: "review", course: "English, Rights & Ethics" }
                 ]
             }
         ];
 
-        // ====================== الدوال ======================
-        function saveProgress(dayIndex, taskIndex, done, rating) {
-            const key = `day${dayIndex}-task${taskIndex}`;
-            localStorage.setItem(key, JSON.stringify({ done, rating }));
-            updateProgressSummary();
-        }
+        // رموز أيقونات لكل مادة
+        const courseIcons = {
+            "Fundamental": "fa-user-nurse",
+            "Physiology": "fa-heartbeat",
+            "English": "fa-language",
+            "Microbiology": "fa-microscope",
+            "Anatomy": "fa-bone",
+            "Ethics": "fa-balance-scale",
+            "Rights": "fa-gavel"
+        };
 
-        function loadProgress(dayIndex, taskIndex) {
-            const key = `day${dayIndex}-task${taskIndex}`;
-            const saved = localStorage.getItem(key);
-            if (saved) return JSON.parse(saved);
-            return { done: false, rating: 0 };
-        }
-
-        function updateProgressSummary() {
-            let completedTasks = 0;
-            let totalTasks = 0;
-
-            days.forEach((dayObj, dayIndex) => {
-                dayObj.tasks.forEach((taskName, taskIndex) => {
-                    totalTasks++;
-                    const progress = loadProgress(dayIndex, taskIndex);
-                    if (progress.done) completedTasks++;
-                });
-            });
-
-            const progressPercentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+        // إنشاء الأيام في الصفحة
+        const daysContainer = document.getElementById('days-container');
+        
+        daysData.forEach(dayData => {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day';
+            dayElement.dataset.day = dayData.day;
             
-            document.getElementById('overallProgress').style.width = `${progressPercentage}%`;
-            document.getElementById('completedTasks').textContent = completedTasks;
-            document.getElementById('totalTasks').textContent = totalTasks;
+            let subjectsHTML = '';
+            dayData.subjects.forEach(subject => {
+                const iconClass = courseIcons[subject.course] || 'fa-book';
+                subjectsHTML += `
+                    <li class="subject">
+                        <i class="fas ${iconClass}"></i>
+                        <span class="subject-type ${subject.type}">${getTypeText(subject.type)}</span>
+                        <span><strong>${subject.course}:</strong> ${subject.name}</span>
+                    </li>
+                `;
+            });
+            
+            dayElement.innerHTML = `
+                <div class="day-header">
+                    <div class="day-number">${dayData.day}</div>
+                    <div class="day-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                </div>
+                <ul class="subjects">
+                    ${subjectsHTML}
+                </ul>
+            `;
+            
+            daysContainer.appendChild(dayElement);
+            
+            // إضافة حدث النقر لتعليم اليوم كمكتمل
+            dayElement.addEventListener('click', function() {
+                this.classList.toggle('completed');
+                updateProgress();
+            });
+        });
+
+        // وظيفة للحصول على نص النوع بالعربية
+        function getTypeText(type) {
+            const typeTexts = {
+                "theory": "نظري",
+                "practical": "عملي",
+                "review": "مراجعة",
+                "english": "إنجليزي"
+            };
+            return typeTexts[type] || type;
         }
 
-        // ====================== توليد المهام ======================
-        const container = document.getElementById('tasksContainer');
+        // تحديث شريط التقدم
+        function updateProgress() {
+            const completedDays = document.querySelectorAll('.day.completed').length;
+            const totalDays = daysData.length;
+            const progressPercent = Math.round((completedDays / totalDays) * 100);
+            const remainingDays = totalDays - completedDays;
+            
+            document.getElementById('progress').style.width = `${progressPercent}%`;
+            document.getElementById('progress-percent').textContent = `${progressPercent}%`;
+            document.getElementById('remaining-days').textContent = remainingDays;
+        }
 
-        days.forEach((dayObj, dayIndex) => {
-            const dayCard = document.createElement('div');
-            dayCard.className = 'day-card';
+        // تعليم جميع الأيام كمكتملة
+        document.getElementById('mark-all').addEventListener('click', function() {
+            document.querySelectorAll('.day').forEach(day => {
+                day.classList.add('completed');
+            });
+            updateProgress();
+        });
 
-            const dayHeader = document.createElement('div');
-            dayHeader.className = 'day-header';
-
-            const dayTitle = document.createElement('div');
-            dayTitle.className = 'day-title';
-            dayTitle.textContent = dayObj.day;
-
-            const dayNumber = document.createElement('div');
-            dayNumber.className = 'day-number';
-            dayNumber.textContent = dayIndex + 1;
-
-            dayHeader.appendChild(dayTitle);
-            dayHeader.appendChild(dayNumber);
-
-            const tasksList = document.createElement('div');
-            tasksList.className = 'tasks-list';
-
-            if (dayObj.tasks.length === 0) {
-                const emptyState = document.createElement('div');
-                emptyState.className = 'empty-state';
-                emptyState.innerHTML = `
-                    <i class="fas fa-coffee"></i>
-                    <p>لا توجد مهام لهذا اليوم</p>
-                `;
-                tasksList.appendChild(emptyState);
-            } else {
-                dayObj.tasks.forEach((taskName, taskIndex) => {
-                    const taskDiv = document.createElement('div');
-                    taskDiv.className = 'task';
-
-                    const progress = loadProgress(dayIndex, taskIndex);
-                    if (progress.done) taskDiv.classList.add('done');
-
-                    const taskContent = document.createElement('div');
-                    taskContent.className = 'task-content';
-
-                    const taskTitle = document.createElement('div');
-                    taskTitle.className = 'task-title';
-                    taskTitle.textContent = taskName;
-
-                    taskContent.appendChild(taskTitle);
-
-                    const taskActions = document.createElement('div');
-                    taskActions.className = 'task-actions';
-
-                    // زر تم
-                    const doneBtn = document.createElement('button');
-                    doneBtn.className = 'btn btn-done';
-                    doneBtn.innerHTML = '<i class="fas fa-check"></i>';
-                    doneBtn.onclick = () => {
-                        taskDiv.classList.toggle('done');
-                        const isDone = taskDiv.classList.contains('done');
-                        saveProgress(dayIndex, taskIndex, isDone, progress.rating);
-                    };
-
-                    // تقييم النجوم
-                    const ratingDiv = document.createElement('div');
-                    ratingDiv.className = 'star-rating';
-                    for (let i = 1; i <= 5; i++) {
-                        const star = document.createElement('span');
-                        star.className = 'star';
-                        star.innerHTML = '<i class="fas fa-star"></i>';
-                        if (progress.rating >= i) star.classList.add('selected');
-                        star.onclick = () => {
-                            progress.rating = i;
-                            saveProgress(dayIndex, taskIndex, progress.done, progress.rating);
-                            // تحديث النجوم
-                            Array.from(ratingDiv.children).forEach((s, j) => {
-                                s.classList.toggle('selected', j < i);
-                            });
-                        }
-                        ratingDiv.appendChild(star);
-                    }
-
-                    taskActions.appendChild(doneBtn);
-                    taskActions.appendChild(ratingDiv);
-
-                    taskDiv.appendChild(taskContent);
-                    taskDiv.appendChild(taskActions);
-
-                    tasksList.appendChild(taskDiv);
-                });
-            }
-
-            dayCard.appendChild(dayHeader);
-            dayCard.appendChild(tasksList);
-            container.appendChild(dayCard);
+        // إعادة تعيين جميع الأيام
+        document.getElementById('reset-all').addEventListener('click', function() {
+            document.querySelectorAll('.day').forEach(day => {
+                day.classList.remove('completed');
+            });
+            updateProgress();
         });
 
         // تحديث التقدم عند التحميل
-        updateProgressSummary();
+        updateProgress();
     </script>
 </body>
 </html>
